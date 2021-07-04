@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { StatusBar, FlatList, Image, Animated, Text, View, Dimensions, StyleSheet, TouchableOpacity, Easing, SafeAreaViewBase, SafeAreaView } from 'react-native';
 const { width, height } = Dimensions.get('screen');
+import  DATA  from './components/data';
+import Header  from './components/Header'
+
 import faker from 'faker'
 
-faker.seed(10);
+{/*faker.seed(10);
 const DATA = [...Array(30).keys()].map((_, i) => {
     return {
         key: faker.random.uuid(),
@@ -13,15 +16,19 @@ const DATA = [...Array(30).keys()].map((_, i) => {
         email: faker.internet.email(),
     };
 });
+*/}
 
 const BG_IMG = 'https://www.proteste.org.br/-/media/proteste/images/home/eletronicos/celular/apps-inovadores.jpg?rev=66007ff6-e213-430e-ba14-19be4b541744';
 const SPACING = 20;
-const AVATAR_SIZE = 70;
+const AVATAR_SIZE = 50;
 const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
 
 export default () => {
   const scrollY = React.useRef((new Animated.Value(0))).current
-    return <View style={{flex: 1, backgroundColor: '#fff'}}>
+    return (
+    <View style={{flex: 1}}>
+      <Header />
+    <View style={{flex: 1, backgroundColor: '#fff'}}>
         <Image 
           source={{uri: BG_IMG}}
           style={StyleSheet.absoluteFillObject}
@@ -36,7 +43,7 @@ export default () => {
           keyExtractor = {item => item.key}
           contentContainerStyle={{
             padding: SPACING, 
-            paddingTop: StatusBar.currentHeight || 42
+            paddingTop: 10
           }}
           renderItem = {({item, index}) => {
             const inputRange = [
@@ -81,13 +88,20 @@ export default () => {
                 }}
                 />
                 <View>
-                  <Text style={{fontSize: 22, fontWeight: '700'}}>{item.name}</Text>
-                  <Text style={{fontSize: 18, opacity: .7}}>{item.jobTitle}</Text>
-                  <Text style={{fontSize: 12, opacity: .8, color: '#0099cc'}}>{item.email}</Text>
+                  <Text style={{fontSize: 20, fontWeight: '700'}}>{item.name}</Text>
+                    <View style={{flexDirection:'row', alignItems: 'center'}}>
+                      <Text style={{fontSize: 14, opacity: .7, color:'#555555'}}>Dispositivos: </Text>
+                      <Text style={{fontSize: 18, opacity: .7, fontWeight:'bold', color: '#1360AB'}}>{item.dispositivo}</Text>
+                    </View> 
+                     <View style={{flexDirection:'row', alignItems: 'center'}}>
+                      <Text style={{fontSize: 14, opacity: .7, color:'#555555'}}>Nota: </Text>
+                      <Text style={{fontSize: 18, opacity: .7, fontWeight:'bold', color: '#1360AB'}}>{item.nota}</Text>
+                    </View>
                 </View>
             </Animated.View>
             )}
         } 
         />
+         </View>
          </View>  
-          }
+          )}
